@@ -12,18 +12,16 @@ class Form extends Component {
     this.state = {
       title: '',
       content: '',
-      deadlineDate: '',
-      objectData: {}
+      deadlineDate: ''
     };
   }
 
   onChanged(component) {
     const { name, value } = component.target;
-    const changedData = { ...this.state.objectData };
+    const changedData = { ...this.props.data };
     changedData[name] = value;
     this.setState({
-      [name]: value,
-      objectData: changedData
+      [name]: value
     });
     if (this.props.onChanged) {
       this.props.onChanged(changedData);
@@ -40,33 +38,36 @@ class Form extends Component {
   }
 
   render() {
+    const { mode, data } = this.props;
     return(
       <div className="form">
         <input
           name="title"
-          value={ this.state.title }
+          value={ data ? data.title : this.state.title }
           onChange={ this.onChanged }
-          placeholder="제목을 입력하세요."
+          placeholder="제목을 입력 하세요."
         />
         &nbsp;&nbsp;
         <input
           name="content"
-          value={ this.state.content }
+          value={ data ? data.content : this.state.content }
           onChange={ this.onChanged }
-          placeholder="내용을 입력하세요."
+          placeholder="내용을 입력 하세요."
         />
         &nbsp;&nbsp;
         <input
           name="deadlineDate"
-          value={ this.state.deadlineDate }
+          value={ data ? data.deadlineDate : this.state.deadlineDate }
           onChange={ this.onChanged }
           type="date"
         />
         <button
           className="create-btn"
           type="button"
-          onClick={ this.onCreated }>
-          추가
+          onClick={ this.onCreated }
+          style={{ background: mode ? '#dc3545' : null }}
+        >
+          { mode ? '수정' : '추가' }
         </button>
       </div>
     );

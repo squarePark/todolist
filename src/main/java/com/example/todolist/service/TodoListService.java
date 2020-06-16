@@ -8,6 +8,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import java.util.List;
+import java.util.Optional;
 
 
 @Service
@@ -21,6 +22,10 @@ public class TodoListService {
 
     public List<TodoDomain> findByTodoList() {
         return  this.todoListRepository.findAll();
+    }
+
+    public Optional<TodoDomain> findByTodoDetail(int id) {
+        return this.todoListRepository.findById(id);
     }
 
     public TodoDomain saveTodoList(TodoDomain todoDomain) {

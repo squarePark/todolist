@@ -5,6 +5,7 @@ import com.example.todolist.service.TodoListService;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 
 @RestController
@@ -20,6 +21,11 @@ public class TodoListController {
     @GetMapping("/todolist")
     public List<TodoDomain> getTotoList() {
         return todoListService.findByTodoList();
+    }
+
+    @GetMapping("/todolist/detail/{id}")
+    public Optional<TodoDomain> getTodoListDetail(@PathVariable("id") int id) {
+        return todoListService.findByTodoDetail(id);
     }
 
     @PutMapping("/todolist/save")

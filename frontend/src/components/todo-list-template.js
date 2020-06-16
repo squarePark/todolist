@@ -15,11 +15,13 @@ class TodoListTemplate extends Component {
     this.onToggle = this.onToggle.bind(this);
     this.onChanged = this.onChanged.bind(this);
     this.onSave = this.onSave.bind(this);
+    this.onEdit = this.onEdit.bind(this);
     this.onRemove = this.onRemove.bind(this);
 
     this.state = {
       data: [],
-      objectData: null
+      objectData: null,
+      isModify: false
     };
   }
 
@@ -28,10 +30,12 @@ class TodoListTemplate extends Component {
   }
 
   getTodoList() {
-    // rest 호출
     axios.get(ApiHandler.buildUrl(['todolist']))
       .then((response) => {
-        const result = response.data;
+        let result = response.data;
+        result.map((item) => {
+          item.deadlineDate = item.deadlineDate.split(' ')[0];
+        });
         this.setState({
           data: result
         });
@@ -72,9 +76,24 @@ class TodoListTemplate extends Component {
       .then((response) => {
         if (response.status === 200) {
           this.setState({
-            objectData: null
+            objectData: null,
+            isModify: false
           });
           this.getTodoList();
+        }
+      });
+  }
+
+  onEdit(id) {
+    axios.get(ApiHandler.buildUrl(['todolist', 'detail', id]))
+      .then((response) => {
+        if (response.status === 200) {
+          const result = response.data
+          result.deadlineDate = result.deadlineDate.split(' ')[0];
+          this.setState({
+            objectData: result,
+            isModify: true
+          });
         }
       });
   }
@@ -96,6 +115,7 @@ class TodoListTemplate extends Component {
         </div>
         <section className="form-wrapper">
           <Form
+            mode={ this.state.isModify }
             data={ this.state.objectData }
             onChanged={ this.onChanged }
             onCreated={ this.onSave }
@@ -108,9 +128,11 @@ class TodoListTemplate extends Component {
                 <TodoItem
                   key={ `todo-item-${index}` }
                   id={ item.id }
-                  text={ `${item.title}` }
+                  title={ `${item.title}` }
+                  date={ `${item.deadlineDate}` }
                   onToggle={ this.onToggle }
                   checked={ item.checkedYn === 'Y' ? true : false }
+                  onEdit={ this.onEdit }
                   onRemove={ this.onRemove }
                 />
               )
