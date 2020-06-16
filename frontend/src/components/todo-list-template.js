@@ -19,8 +19,11 @@ class TodoListTemplate extends Component {
     this.onRemove = this.onRemove.bind(this);
 
     this.state = {
-      data: [],
-      objectData: null,
+      list: [],
+      objectData: {
+        id: '', orderNumber: '', title: '',
+        content: '', checkedYn: '', deadlineDate: ''
+      },
       isModify: false
     };
   }
@@ -34,16 +37,16 @@ class TodoListTemplate extends Component {
       .then((response) => {
         let result = response.data;
         result.map((item) => {
-          item.deadlineDate = item.deadlineDate.split(' ')[0];
+          return item.deadlineDate = item.deadlineDate.split(' ')[0];
         });
         this.setState({
-          data: result
+          list: result
         });
       });
   }
 
   onToggle(id) {
-    const changeData = [ ...this.state.data ];
+    const changeData = [ ...this.state.list ];
     let result = {};
     changeData.map((item) => {
       if (item.id === id) {
@@ -76,7 +79,10 @@ class TodoListTemplate extends Component {
       .then((response) => {
         if (response.status === 200) {
           this.setState({
-            objectData: null,
+            objectData: {
+              id: '', orderNumber: '', title: '',
+              content: '', checkedYn: '', deadlineDate: ''
+            },
             isModify: false
           });
           this.getTodoList();
@@ -122,8 +128,8 @@ class TodoListTemplate extends Component {
           />
         </section>
         <section className="todo-wrapper">
-          { this.state.data.length > 0 ?
-            this.state.data.map((item, index) => {
+          { this.state.list.length > 0 ?
+            this.state.list.map((item, index) => {
               return (
                 <TodoItem
                   key={ `todo-item-${index}` }
