@@ -16,14 +16,25 @@
     opacity: 1;
 }
 
+.todo-item:hover .edit {
+    opacity: 1;
+}
+
 /* todo-item 사이에 윗 테두리 */
 .todo-item + .todo-item {
     border-top: 1px solid #f1f3f5;
 }
 
+.edit {
+    margin-right: 1rem;
+    color: #343a40;
+    font-weight: 600;
+    opacity: 0;
+}
+
 .remove {
     margin-right: 1rem;
-    color: #e64980;
+    color: #dc3545;
     font-weight: 600;
     opacity: 0;
 }
