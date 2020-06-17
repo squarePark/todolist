@@ -4,7 +4,7 @@
 <br />
 > frontend 는 frontend 디렉토리의 README.md 파일을 참조하십시오.
 
-## Build Setup (초기 세팅 방법)
+## Build Setup (초기 세팅 방법 및 안내사항)
 
 ``` bash
 # install, build dependencies
@@ -17,7 +17,10 @@ gradle dependencies
   3. password = todolist
 
 # 초기에는 기본으로 생성된 H2 DB File이 있습니다.
-(해당 프로젝트를 위한 기본 테이블은 이미 생성되어 있는 상태 입니다.)
+(이 프로젝트를 위한 기본 테이블은 이미 생성되어 있는 상태 입니다.)
+
+# 초기에는 기본으로 /lib 디렉토리에 todolist-0.0.1-SNAPSHOT.jar 이 있습니다.
+(이 프로젝트를 위한 최종 build 파일은 이미 생성되어 있는 상태 입니다.)
 
 ```
 

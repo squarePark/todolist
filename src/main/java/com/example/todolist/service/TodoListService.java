@@ -21,7 +21,7 @@ public class TodoListService {
     }
 
     public List<TodoDomain> findByTodoList() {
-        return  this.todoListRepository.findAll();
+        return  this.todoListRepository.findAllByOrderByOrderNumberAsc();
     }
 
     public Optional<TodoDomain> findByTodoDetail(int id) {

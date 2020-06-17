@@ -94,7 +94,7 @@ class TodoListTemplate extends Component {
     axios.get(ApiHandler.buildUrl(['todolist', 'detail', id]))
       .then((response) => {
         if (response.status === 200) {
-          const result = response.data
+          const result = response.data;
           result.deadlineDate = result.deadlineDate.split(' ')[0];
           this.setState({
             objectData: result,
@@ -113,6 +113,30 @@ class TodoListTemplate extends Component {
       });
   }
 
+  onDrop(event) {
+    event.preventDefault();
+    const id = event.dataTransfer.getData('text');
+    const moveElement = document.getElementById(id);
+    moveElement.parentNode.insertBefore(moveElement, event.target.parentNode.parentNode);
+    event.dataTransfer.clearData();
+
+    // order number 를 찾아야 한다.
+    const element = document.getElementsByClassName('todo-item');
+    let params = [ ...this.state.list ];
+    let i = 0;
+    for (let item of element) {
+      for (let item2 of params) {
+        if (Number(item.id) === item2.id) {
+          item2.orderNumber = i + 1;
+          i++;
+        }
+      }
+    }
+    params.map((item) => {
+      return this.onSave(item);
+    });
+  }
+
   render() {
     return (
       <main className="todo-list-template">
@@ -127,7 +151,7 @@ class TodoListTemplate extends Component {
             onCreated={ this.onSave }
           />
         </section>
-        <section className="todo-wrapper">
+        <section className="todo-wrapper" onDrop={ this.onDrop.bind(this) }>
           { this.state.list.length > 0 ?
             this.state.list.map((item, index) => {
               return (

@@ -1,8 +1,27 @@
 import React, { Component } from 'react';
 import './todo-item.css';
+const placeholder = document.createElement("div");
+placeholder.className = "placeholder";
 
 
 class TodoItem extends Component {
+  onDragStart(event) {
+    const element = event.target;
+    const id = element.id;
+    event.dataTransfer.setData('text', id);
+  }
+  onDragEnd(event) {
+    event.preventDefault();
+    const place = document.getElementsByClassName('placeholder');
+    place[0].parentNode.removeChild(place[0]);
+  }
+
+  onDragOver(event) {
+    event.preventDefault();
+    if(event.target.className === 'placeholder') return;
+    event.target.parentNode.insertBefore(placeholder, event.target);
+  }
+
   render() {
     const { title, date, checked, id, onToggle, onEdit, onRemove } = this.props;
     const checkDate = new Date();
@@ -12,13 +31,19 @@ class TodoItem extends Component {
 
     return (
       <div
+        key={ id }
+        name={ id }
+        id={ id }
         className="todo-item"
         onClick={ () => onToggle(id) }
+        draggable="true"
+        onDragStart={ this.onDragStart.bind(this) }
+        onDragEnd={ this.onDragEnd.bind(this) }
       >
         {
           checked && (<div className="check-mark">✓</div>)
         }
-        <div className={ `todo-text ${checked && 'checked'}` }>
+        <div className={ `todo-text ${checked && 'checked'}` } onDragOver={ this.onDragOver.bind(this) }>
           <div>
             { title }
             <span
