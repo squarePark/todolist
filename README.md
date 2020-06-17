@@ -4,9 +4,20 @@
 
 > A Spring boot and React project
 <br />
->
->
-> frontend 는 frontend 디렉토리의 README.md 파일을 참조하십시오.
+> frontend 는 frontend 디렉토리의 README.md 파일을 참조하세요.
+
+
+## 간단한 기능 설명
+######(우선순위 설정 기능은 드래그앤드랍을 사용했습니다!)
+- [x] TODO 항목의 제목과 내용을 수정할 수 있다.
+- [x] TODO 항목의 우선순위를 설정 및 조절 할 수있다.
+- [x] 마감기한이 지난 TODO에 대해 알림을 노출할 수 있다.
+- [x] TODO 항목에 대한 완료처리를 할 수 있다.
+- [x] 사용자의 선택에 의해 TODO에는 마감 기한을 넣을 수 있다.
+- [x] TODO 항목을 삭제할 수 있다.
+- [x] TODO 목록을 볼 수 있다.
+- [x] 새로운 TODO(제목과 내용)를 작성할 수 있다.
+
 
 ## Build Setup (초기 세팅 방법 및 안내사항)
 
