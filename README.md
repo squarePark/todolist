@@ -1,7 +1,11 @@
 # TODO LIST
 
+![스크린샷 2020-06-17 오후 3 36 45](https://user-images.githubusercontent.com/45628770/84863857-a3610a80-b0b0-11ea-93cc-d3c03f56503c.png)
+
 > A Spring boot and React project
 <br />
+>
+>
 > frontend 는 frontend 디렉토리의 README.md 파일을 참조하십시오.
 
 ## Build Setup (초기 세팅 방법 및 안내사항)
